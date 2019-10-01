@@ -1,6 +1,7 @@
 import React from 'react'; 
 import classes from './Burger.module.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
+import { transcode } from 'buffer';
 // import BurgerBuilder from '../../containers/BurgerBuilder/BurgerBuilder';
 
 
@@ -13,7 +14,12 @@ const burger = (props) => {
                 return <BurgerIngredient key={igKey + i} type={igKey} />;
             } );
         } )
-
+        .reduce((arr, el) => {
+            return arr.concat(el)
+        }, []);
+        if(transformedIngredients.length === 0){
+            transformedIngredients = <p>Create your burger</p>
+        }
     return(
         <div className = {classes.Burger}>
             <BurgerIngredient type = 'bread-top'/>
